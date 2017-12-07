@@ -1,0 +1,147 @@
+body {
+    margin: 0;
+}
+
+ul.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+	height: 40px;
+	z-index:10;
+}
+
+li.nav {
+	font-family: 'RobotoDraft', 'Roboto', Arial, sans-serif;
+    float: left;
+}
+
+li.nav a, .dropdown {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 11px 16px;
+    text-decoration: none;
+	cursor: default;
+}
+
+li.nav a:hover {
+    background-color: #24B67A;
+	font-weight: normal;
+	color: white;
+	transition: background-color 0.4s;
+}
+
+li.nav a.active {
+    background-color: #1DA56D;
+}
+
+/*menu per il profilo utente*/
+li.user {
+    display: inline-block;
+	float: right;
+	font-family: 'RobotoDraft', 'Roboto Light', 'Roboto', Arial, sans-serif;
+    min-width: 150px;
+    background-color: #444444;
+}
+
+.user .dropdown {
+    min-width: 118px;
+}
+
+.user:hover .dropdown {
+	background-color: #1DA56D;
+	font-weight: normal;
+	color: white;
+	transition: background-color 0.4s;
+}
+
+.user-content {
+    /*display: none;*/
+    visibility: hidden;
+    position: absolute;
+	top: 40px;
+    background-color: #333;
+    min-width: 150px;
+    height: 0px;
+	right: 0;
+	z-index:9;
+    -webkit-transition: visibility 400ms ease-out, height 400ms ease;
+    -moz-transition: visibility 400ms ease-out, height 400ms ease;
+    -o-transition: visibility 400ms ease-out, height 400ms ease;
+    transition: visibility 400ms ease-out, height 400ms ease;
+}
+
+.user-content a {
+    color: white;
+    padding: 11px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.user-content a:hover {
+    color: white;
+	background-color: #24B67A;
+	font-weight: normal;
+}
+
+.user:hover .user-content {
+    visibility: visible;
+    height: 80px;
+}
+
+/*menu per la tabaccheria*/
+li.tabaccheria {
+    /*display: inline-block;*/
+	float: right;
+	font-family: 'Roboto Light', 'Roboto', Arial, sans-serif;
+    min-width: 200px;
+}
+
+.tabaccheria .dropdown {
+    min-width: 168px;
+}
+
+.tabaccheria:hover .dropdown {
+	background-color: #1DA56D;
+	font-weight: normal;
+	color: white;
+	transition: background-color 0.4s;
+}
+
+.tabaccheria-content {
+    /*display: none;*/
+    visibility: hidden;
+    position: absolute;
+	top: 40px;
+    background-color: #333;
+    min-width: 200px;
+    height: 0px;
+	right: 150px;
+	z-index:9;
+    -webkit-transition: visibility 400ms ease-out, height 400ms ease;
+    -moz-transition: visibility 400ms ease-out, height 400ms ease;
+    -o-transition: visibility 400ms ease-out, height 400ms ease;
+    transition: visibility 400ms ease-out, height 400ms ease;
+}
+
+.tabaccheria-content a {
+    color: white;
+    padding: 11px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.tabaccheria-content a:hover {
+    color: white;
+	background-color: #24B67A;
+	font-weight: normal;
+}
+
+.tabaccheria:hover .tabaccheria-content {
+    visibility: visible;
+    height: 40px;
+}

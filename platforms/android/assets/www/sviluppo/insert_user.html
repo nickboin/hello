@@ -1,0 +1,67 @@
+<html>
+    <head><title>Nuovo utente</title></head>
+    <body>
+		<h1>Inserimento utente</h1>
+		<form action="newuser.php" method="POST">
+			<table>
+				<tr>
+					<td>Username*:</td>
+					<td><input type=text name="username" maxlength=30 required/></td>
+				</tr>
+				<tr>
+					<td>E-mail*:</td>
+					<td><input type=email name="email" required/></td>
+				</tr>
+				<tr>
+					<td>Password*:</td>
+					<td><input type=text name="password" maxlength=50 required/></td>
+				</tr>
+				<tr>
+					<td>Nome*:</td>
+					<td><input type=text name="nome" maxlength=30 required/></td>
+				</tr>
+				<tr>
+					<td>Cognome:</td>
+					<td><input type=text name="cognome" maxlength=30/></td>
+				</tr>
+				<tr>
+					<td>Codice fiscale:</td>
+					<td><input type=text name="cf" maxlength=16/></td>
+				</tr>
+				<tr>
+					<td>Immagine:</td>
+					<td><input type=text name="immagine"/></td>
+				</tr>
+				<tr>
+					<td>Ruolo:</td>
+					<td><input type=text name="ruolo" maxlength=30/></td>
+				</tr>
+				<tr>
+					<td>Admin*:</td>
+					<td><input type=radio name="admin" value="1"/>Si<br/>
+					<input type=radio name="admin" value="0" checked/>No</td>
+				</tr>
+				<tr>
+					<td>Data di nascita:</td>
+					<td><input type=date name="datanascita"/></td>
+				</tr>
+				<tr>
+					<td>Numero tabaccheria*:</td>
+					<td><input type=number name="tabaccheria" min="1" required/></td>
+				</tr>
+				<tr>
+					<td>Comune tabaccheria*:</td>
+					<td><input type=text name="comune" maxlength=75 required/></td>
+				</tr>
+				<tr>
+					<td>Sigla provincia tabaccheria*:</td>
+					<td><input type=text name="provincia" maxlength=2 required/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><br/><input type=submit value="Inserisci"></td>
+				</tr>
+			</table>
+		</form>
+    </body>
+</html>

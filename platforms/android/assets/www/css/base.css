@@ -1,0 +1,61 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=RobotoDraft:300);
+	
+body {
+	font-family: 'RobotoDraft', Arial, sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: #32D390;
+	font-weight: bold;
+}
+
+a.colorato {
+	color: #24B67A;
+}
+
+a.help {
+	color: black;
+	font-family: "Roboto", Arial, sans-serif;
+	font-size: 13px;
+}
+
+a.help:hover {
+	color: white;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+.background_img {
+	position: fixed; 
+	top: 0; 
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin:auto;
+	z-index:-1;
+	min-width: 100%;
+	min-height: 100%;
+	/* not selectable */
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.footer {
+	position: absolute;
+	right: 10px;
+	bottom: 3px;
+	color: white;
+} 

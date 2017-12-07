@@ -1,0 +1,208 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Il servizio - Tabaccando</title>
+		<link rel="shortcut icon" href="images/icon.ico">
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--css icons-->
+		<style>
+			@import url('https://fonts.googleapis.com/css?family=Abel');
+			
+			body, html {
+				height: 100%;
+				margin: 0;
+			}
+			  
+			.gestionale, .ordina, .magazzino, .vendite, .tabacco, .statistiche, .fine {
+				position: relative;
+				background-attachment: fixed;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				-moz-background-size: cover;
+				-webkit-background-size: cover;
+				-o-background-size: cover;
+			  
+			}
+			
+			.gestionale {
+				background-image: url("images/gestionale.png");
+				min-height: 100%;
+			}
+			
+			.fine {
+				background-image: url("images/home3.jpg");
+				min-height: 100%;
+			}
+			  
+			.ordina {
+				background-image: url("images/invoice.jpg");
+				min-height: 500px;
+			}
+			  
+			.magazzino {
+				background-image: url("images/magazzino.jpg");
+				min-height: 500px;
+			}
+			  
+			.vendite {
+				background-image: url("images/vendite.jpg");
+				min-height: 500px;
+			}
+			
+			.tabacco {
+				background-image: url("images/tabacco.jpg");
+				min-height: 500px;
+			}
+			  
+			.statistiche {
+				background-image: url("images/statistiche.jpg");
+				min-height: 500px;
+			}
+			  
+			.caption {
+				position: absolute;
+				left: 0;
+				top: 50%;
+				width: 100%;
+				text-align: center;
+			  }
+			  
+			.caption span.box {
+				color: #fff;
+				background-color: #333;
+				padding: 25px;
+				font-size: 40px;
+				font-weight: bold;
+				font-family: 'Abel', 'Roboto', Arial, sans-serif;
+				cursor: default;
+			}
+			
+			.desc {
+				color:#ddd;
+				background-color:#282E34;
+				text-align:justify;
+				padding: 80px;
+				font-size: 24px;
+			}
+			
+			.home {
+				position: fixed;
+				left: 10px;
+				top: 5px;
+				z-index: 20;
+			}
+			
+			.home a {
+				color: white;
+				text-shadow: 0 0 20px black;
+				/*animazione mouse hover*/
+				-webkit-transition: 500ms ease;
+				-moz-transition: 500ms  ease;
+				-o-transition: 500ms ease;
+				transition: 500ms ease;
+			}
+			
+			.home a:visited {
+				color: white;
+			}
+			
+			.home a:hover {
+				text-shadow: 0 0 20px white;
+				color: #4dff4d;
+			}
+			
+			  /* Turn off parallax scrolling for tablets and phones */
+			@media only screen and (max-device-width: 1024px) {
+				.gestionale, .ordina, .magazzino, .vendite, .tabacco, .statistiche, .fine {
+					background-attachment: scroll;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<div class="home"><a href="home.html" title="HomePage"><i class="fa fa-home" style="font-size:24px"></i></a></div>
+		
+		<!--  PARALLAX GESTIONALE -->
+		<div class="gestionale">
+			<div class="caption">
+				<a href="#desc1"><span class="box">SEMPLICE ED INTUITIVO</span></a>
+			</div>
+		</div>
+		<!-- Descrizione gestionale -->
+		<div id="desc1" class="desc">
+			Un gestionale di facile comprensione ed utilizzo, perfetto per gestire al meglio la tua ricevitoria.
+		</div>
+		
+		<!-- PARALLAX ORDINE -->
+		<div class="ordina">
+			<div class="caption">
+				<a href="#desc2"><span class="box">ORDINA</span></a>
+			</div>
+		</div>
+		<!-- Descrizione ordine -->
+		<div id="desc2" class="desc">
+			Crea le tue liste di ordini in maniera semplice e veloce, aggiornandole al bisogno per non dimenticare nulla.
+		</div>
+		
+		<!-- PARALLAX MAGAZZINO -->
+		<div class="magazzino">
+			<div class="caption">
+				<a href="#desc3"><span class="box">GIACENZA</span></a>
+			</div>
+		</div>
+		<!-- Descrizione magazzino -->
+		<div id="desc3" class="desc">
+			Registra i prodotti presenti nel tuo magazzino; in questo modo puoi avere una visione dei prodotti e relative
+			quantità ancora presenti, venendo a conoscenza i prodotti difficili da vendere e quelli più venduti.<br/>
+			Aggiungi i prodotti manualmente oppure automaticamente da ordini recapitati. 
+		</div>
+	
+		<!-- PARALLAX TABACCO -->
+		<div class="tabacco">
+			<div class="caption">
+				<a href="#desc4"><span class="box">TABACCO</span></a>
+			</div>
+		</div>
+		<!-- Descrizione tabacco -->
+		<div id="desc4" class="desc">
+			Memorizza i tabacchi presenti nella tua ricevitoria, registrandone vendite ed arrivi, visualizzando i dettagli 
+			per ogni pacchetto ed utilizzando il pratico e veloce codice a barre. Visualizza l'elenco di tutti i tabacchi 
+			disponibili e ricerca quelli che ti interessano.
+		</div>
+		
+		<!-- PARALLAX VENDITE -->
+		<div class="vendite">
+			<div class="caption">
+				<a href="#desc5"><span class="box">VENDITE</span></a>
+			</div>
+		</div>
+		<!-- Descrizione vendite -->
+		<div id="desc5" class="desc">
+			Registra le vendite dei tabacchi in modo da registrare le tue entrate ed aggiornare velocemente la tua 
+                        effettiva giacenza di magazzino.
+		</div>
+		
+		<!-- PARALLAX STATISTICHE -->
+		<div class="statistiche">
+			<div class="caption">
+				<a href="#desc6"><span class="box">STATISTICHE</span></a>
+			</div>
+		</div>
+		<!-- Descrizione statistiche -->
+		<div id="desc6" class="desc">
+			Visualizza le statistiche di vendita dei tabacchi, individuando quelli più e meno venduti.<br/>
+                        Visualizza inoltre i ricavi lordi ed il rispettivo aggio.
+		</div>
+		
+		<!-- PARALLAX FINE -->
+		<div class="fine">
+			<div class="caption">
+                            <span class="box">IL MEGLIO PER LA TUA TABACCHERIA &Egrave; QUI.</span>
+			</div>
+		</div>
+		
+	</body>
+</html>

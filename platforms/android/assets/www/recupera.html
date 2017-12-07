@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Recupero Password</title>
+		<link rel="shortcut icon" href="images/icon.ico">
+		<link rel="stylesheet" href="css/base.css">
+		<style>
+			body {
+				background: #F2F2F2;
+			}
+			
+			h1 {
+				color: #353535;
+			}
+			
+			h1:hover {
+				text-shadow: 0 0 15px #32D390;
+			}
+			
+			h2 {
+				color: #00498E;
+				font-size: 22px;
+				font-family: Arial,sans-serif;
+			}
+			
+			a.help:hover {
+				color: black;
+				font-weight: bold;
+			}
+			
+			.email {
+				padding:10px 10px;
+				margin:10px 0;
+				border:none;
+				background:#8C8C8C;
+				text-decoration: none;
+				color: white;
+				width: 700px;
+				}
+			
+			.email:hover, .email:active, .email:focus
+				{ background:#24B67A; }
+			
+			.invia {
+				font-family: "Roboto", sans-serif;
+				background: #32D390;
+				border: 0;
+				margin:10px 0;
+				padding: 10px;
+				text-decoration: none;
+				font-weight: bold;
+				color: white;
+				width: 150px;
+			}
+			
+			.invia:hover
+				{ background:#24B67A; }
+			
+		</style>
+	</head>
+
+	<body>
+		
+		<h1>
+			<img src="images\tabaccheria.png" style="vertical-align: middle; border: 2px solid; border-color: black" height=50px>
+			&nbsp Gestionale WEB tabaccheria
+		</h1>
+		<h2>
+			Recupero password
+		</h2>
+		<p>
+			Inserisci l'indirizzo e-mail dell'account di cui si desidera recuperare la password.<br/>
+			Sarà inviata un'e-mail contenente la nuova password, modificabile poi successivamente.
+		</p>
+		<form method=post action="" onsubmit="esito();return false;">
+			<input class=email type=email id=email required/>
+			&nbsp &nbsp
+			<input class=invia type=submit id=submit value="INVIA"/>
+		</form>
+		<p id=esito style="font-weight: bold; font-size:14px"></p>
+		<div class=footer>
+			<a class=help href="mailto:amministratore@tabacchi.it?subject=Richiesto%20intervento%20portale%20tabaccai&body=Buongiorno,%20desideravo%20richiedere%20assistenza%20nel%20portale%20dei%20tabaccai%20online%20per%20la%20seguente%20motivazione:%20">
+				Segnala problemi
+			</a>
+		</div>
+		
+		<script>
+			function esito() {
+				document.getElementById("esito").innerHTML="<img src='images/info.gif' height=20 style='vertical-align: middle;'/> &nbsp E-mail inviata. Controlla la tua posta elettronica.";
+			}
+		</script>
+	</body>
+</html>

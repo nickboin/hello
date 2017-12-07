@@ -1,0 +1,41 @@
+input, select {
+	padding:10px 10px;
+	margin: 3px 10px;
+	border:none;
+	background:#8C8C8C;
+	text-decoration: none;
+	color: white;
+}
+
+input:hover, input:active, input:focus, select:hover
+	{ background:#24B67A; }
+
+.field { width: 700px; }
+
+.optionpane option {
+	background:#8C8C8C;
+	font-size: 15px;
+}
+.optionpane option:hover {
+	background: #bababa;
+}
+
+.tasto {
+	font-family: "RobotoDraft", "Roboto", sans-serif;
+	background: #32D390;
+	border: 0;
+	margin-left: 10px;
+	padding: 10px 30px;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+}
+
+.tasto:hover
+	{ background:#24B67A; }
+
+
+div.apply {
+	float: right;
+	margin: 30px;
+}

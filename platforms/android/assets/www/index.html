@@ -1,0 +1,954 @@
+<html>
+<head>
+    <title>Tesi - Il Software Gestionale</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+@font-face {
+    font-family: 'Bubbler';
+    src: url('fonts/bubblerone.woff2') format('woff2'),
+         url('fonts/bubblerone.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Abel';
+    src: url('fonts/abel.woff2') format('woff2'),
+         url('fonts/abel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Questrial';
+    src: url('fonts/questrial.woff2') format('woff2'),
+         url('fonts/questrial.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: Questrial, Arial, sans-serif;
+    font-size: 13pt;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+h2 {
+    font-family: Abel, Arial, sans-serif;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+a:hover {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+    text-decoration: underline;
+}
+
+ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+p.code {
+    font-family: monospace;
+    border: solid 1px #A0BAC1;
+    background-color: #bcd8e0;
+    color: black;
+    padding: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.nocode {
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 12pt;
+    letter-spacing: -0.03em;
+}
+
+.topnav {
+    background-color: #ddd;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+.topnav a:first-child { padding-right: 15px; }
+
+.topnav a {
+    float: right;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 6px 10px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.2s;
+}
+
+.topnav a:hover {
+    background-color: #555;
+    color: white;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: default;
+}
+
+.dropdown-content {
+    display: none;
+    position: fixed;
+    overflow: auto;
+    top: 34px;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 6px 10px;
+    text-decoration: none;
+    display: block;
+    float: none;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover { background-color: #999; }
+
+.centratore {
+    position: absolute;
+    left: 0;
+    top: 42%;
+    width: 100%;
+    text-align: center;
+    color: #000;
+    background-color: rgba(255,255,255,0.95);
+    border-radius: 5px;
+    padding: 20px 0;
+    color: black;
+    font-family: Abel;
+    font-size: 30pt;
+    font-weight: bold;
+    text-shadow: -1px -1px 8px #72C8F0;
+}
+
+.materia {
+    color: #333;
+    font-weight: bold;
+    font-size: 12pt;
+    font-style: italic;
+    font-family: Bubbler, Arial, sans-serif;
+}
+
+.img {
+    position: relative;
+    opacity: 0.95;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 550px;
+}
+
+#percorso {
+    text-align: center;
+    padding-top: 5px;
+    min-height: 400px;
+}
+
+#percorso h2 {
+    margin-bottom: 30px;
+    cursor: default;
+    font-size: 28pt;
+}
+    
+#inizio {
+    background-image: url("images-tesi/home.jpg");
+    height: 100%;
+}
+
+#img-progetto {
+    background-image: url("images-tesi/progetto.jpg");
+}
+
+#img-informatica {
+    background-image: url("images-tesi/sql.jpg");
+}
+
+#img-tecnologie {
+    background-image: url("images-tesi/client-server.jpg");
+}
+
+#img-inglese {
+    background-image: url("images-tesi/database.jpg");
+}
+
+#img-italiano {
+    background-image: url("images-tesi/italo-svevo.jpg");
+}
+
+
+#crediti {
+    color: #111;
+    background-color: #eee;
+    padding: 50px;
+}
+
+.credits {
+    font-size: 10pt;
+    font-family: Arial, sans-serif;
+    text-align: right;
+}
+
+.contenuto {
+    color: white;
+    background-color: #777;
+    padding: 50px;
+    text-align: justify;
+}
+
+.spoiler { display: none; }
+</style>
+<script language="javascript">
+    function spoiler(idParziale,titoloParagrafo) {
+        var display = document.getElementById("p-"+idParziale).style.display;
+        var apri = display!=="block";
+        spoilerare(idParziale,titoloParagrafo,apri);
+    }
+    
+    function spoilerare(idParziale,titoloParagrafo,apri) {
+        var paragrafo = document.getElementById("p-"+idParziale);
+        var titolo = document.getElementById("title-"+idParziale);
+        if (apri) {
+            paragrafo.style.display = "block";
+            titolo.innerHTML = "&#9661 " + titoloParagrafo;
+        }
+        else {
+            paragrafo.style.display = "none";
+            titolo.innerHTML = "&#9654 " + titoloParagrafo;
+        }
+    }
+    
+    function spoilerInglese() {
+        var condizione = document.getElementById("p-ing-database").style.display=="block";
+        condizione = condizione && document.getElementById("p-ing-rdb").style.display=="block";
+        condizione = condizione && document.getElementById("p-ing-dbms").style.display=="block";
+        condizione = condizione && document.getElementById("p-ing-query").style.display=="block";
+        spoilerare('ing-database','Databases',!condizione);
+        spoilerare('ing-rdb','Relational Database Model',!condizione);
+        spoilerare('ing-dbms','DBMS',!condizione);
+        spoilerare('ing-query','Query',!condizione);
+    }
+    
+    function spoilerItaliano() {
+        var condizione = document.getElementById("p-ita-svevo").style.display=="block";
+        condizione = condizione && document.getElementById("p-ita-zeno").style.display=="block";
+        condizione = condizione && document.getElementById("p-ita-fumo").style.display=="block";
+        spoilerare('ita-svevo','Italo Svevo',!condizione);
+        spoilerare('ita-zeno','La coscienza di Zeno',!condizione);
+        spoilerare('ita-fumo','L&apos;ultima sigaretta',!condizione);
+    }
+    
+    function spoilerTecnologie() {
+        var condizione = document.getElementById("p-tinf-architettura").style.display=="block";
+        condizione = condizione && document.getElementById("p-tinf-pro").style.display=="block";
+        condizione = condizione && document.getElementById("p-tinf-contro").style.display=="block";
+        condizione = condizione && document.getElementById("p-tinf-client").style.display=="block";
+        spoilerare('tinf-architettura','Architettura Client-Server',!condizione);
+        spoilerare('tinf-pro','Vantaggi architettura Client-Server',!condizione);
+        spoilerare('tinf-contro','Svantaggi architettura Client-Server',!condizione);
+        spoilerare('tinf-client','Thin &amp; Fat Client',!condizione);
+    }
+    
+    function spoilerInformatica() {
+        var condizione = document.getElementById("p-inf-sql").style.display=="block";
+        condizione = condizione && document.getElementById("p-inf-ddl").style.display=="block";
+        condizione = condizione && document.getElementById("p-inf-dql").style.display=="block";
+        condizione = condizione && document.getElementById("p-inf-dml").style.display=="block";
+        condizione = condizione && document.getElementById("p-inf-dcl").style.display=="block";
+        condizione = condizione && document.getElementById("p-inf-transazioni").style.display=="block";
+        spoilerare('inf-sql','Linguaggio SQL',!condizione);
+        spoilerare('inf-ddl','DDL - Data Definition Language',!condizione);
+        spoilerare('inf-dql','DQL - Data Query Language',!condizione);
+        spoilerare('inf-dml','DML - Data Manipulation Language',!condizione);
+        spoilerare('inf-dcl','DCL - Data Control Language',!condizione);
+        spoilerare('inf-transazioni','Transazioni',!condizione);
+    }
+</script>
+</head>
+<body>
+<!--navbar-->
+<div class="topnav">
+    <div style="float:left;color: black;margin:6px 10px;font-size:15px;">Il software gestionale</div>
+    <div class="dropdown">
+        <a>Materie</a>
+        <div class="dropdown-content">
+            <a href="#img-informatica">Informatica</a>
+            <a href="#img-tecnologie">Tecnologie informatiche</a>
+            <a href="#img-inglese">Lingua Inglese</a>
+            <a href="#img-italiano">Lingua e Lett. Italiana</a>
+        </div>
+    </div>
+    <a href="#percorso">Percorso</a>
+    <a href="home.html">Progetto</a>
+    <a href="#top">Home</a>
+</div>
+
+<section class="img" id="inizio">
+    <div class="centratore"> SOFTWARE GESTIONALE </div>
+</section>
+
+<section class="contenuto" id="percorso">
+    <h2>Percorso</h2>
+    <img src="images-tesi/percorso-traccia.png"/>
+    
+    <h2 id="title-collegamenti" onclick="spoiler('collegamenti','I collegamenti');"
+        style="text-align:left;cursor:pointer;font-size:1.5em;">&#9654 I collegamenti</h2>
+    <div class="spoiler" id="p-collegamenti" style="text-align:left;">
+        Il software gestionale &egrave; composto essenzialmente di pagine web dinamiche e di un database, sono perci&ograve; stati collegati:
+        <ul>
+            <li>il linguaggio SQL per la materia Informatica, in quanto parte fondamentale per l&apos;interazione tra database e pagine web;</li>
+            <li>il database per la materia Lingua Inglese, in quanto largamente utilizzato nel software per la memorizzazione di 
+                tutti i dati del gestionale;</li>
+            <li>l&apos;architettura Client-Server di tipo &quot;thin client&quot; per la materia Tecnologie e progettazione di sistemi 
+                informatici e di telecomunicazioni, in quanto il progetto &egrave; stato realizzato basandosi su tale architettura;</li>
+            <li>&quot;La coscienza di Zeno&quot; di Italo Svevo per la materia Lingua e Letteratura Italiana, in quando il progetto 
+                &egrave; stato realizzato per tabaccherie, le quali, per definizione, sono adibite alla vendita di tabacco, 
+                ovvero il punto debole pi&ugrave; evidente del protagonista dell&apos;opera &quot;La coscienza di Zeno&quot;.</li>
+        </ul>
+    </div>
+    
+</section>
+
+
+<section class="img" id="img-progetto">
+    <div class="centratore"> <span class="materia"> PROGETTO </span> <br/>
+        "<a href="home.html" style="text-decoration:none;" target="_blank">TABACCANDO</a>" </div>
+</section>
+<section id="progetto" class="contenuto">
+    &quot;Tabaccando&quot;, come già accennato, &egrave; un software gestionale per tabaccherie.<br/>
+    Con questo software un tabaccaio pu&ograve;:
+    <ul>
+    <li><b>visualizzare il listino dei tabacchi e ricercarli</b>: la sezione &quot;Tabacco&quot; &egrave; designata per la ricerca e 
+    visualizzazione dei dettagli dei tabacchi; &egrave; possibile ricercare i tabacchi tramite il codice AAMS, il quale contraddistingue 
+    univocamente tutti i tabacchi, oppure tramite descrizione; &egrave; inoltre possibile per ogni tabacco visualizzarne i dettagli.</li>
+    <li><b>visualizzare ed effettuare ordini di tabacco</b>: la sezione &quot;Ordine&quot; permette di creare ordini di tabacco, eventualmente 
+    modificarli od eliminarli (se non ancora spediti) e visualizzare l&apos;elenco degli ordini effettuati dalla tabaccheria ed il 
+    dettaglio di ogni singolo ordine.</li>
+    <li><b>gestire la propria giacenza nel magazzino</b>: la sezione &quot;Magazzino&quot; permette di registrare i prodotti presenti nel 
+    magazzino in modo da permettere al tabaccaio di monitorare le quantit&agrave; di prodotti rimaste ed accorgersi di eventuali prodotti 
+    scarsi o non presenti oltre a quelli gi&agrave; presenti; &egrave; inoltre possibile settare il software in modo che l&apos;ordine di 
+    tabacco evaso venga aggiunto automaticamente al magazzino semplificando le operazioni di inserimento del tabaccaio.</li>
+    <li><b>registrare le vendite dei tabacchi</b>: la sezione &quot;Vendite&quot; permette di registrare le vendite dei tabacchi  
+    scalandoli automaticamente dalle presenze in magazzino, aiutando a ricordare quali prodotti scarseggiano e nel calcolo contabile;</li>
+    <li><b>gestire la contabilit&agrave;</b>: la sezione &quot;Statistiche&quot; permette di visualizzare la quantit&agrave; di tabacchi 
+    venduti, mostrando le statistiche di vendita per prodotto e gli incassi ottenuti;</li>
+    <li><b>effettuare calcoli con semplicit&agrave;</b>: la sezione &quot;Calcolatrice&quot; permette di effettuare calcoli senza dover lasciare 
+    il gestionale; sono presenti, inoltre, le &quot;funzioni&quot; pi&ugrave; utilizzate dai tabaccai, come l&apos;IVA.</li>
+    </ul>
+    Il gestionale si presenta sotto forma di una <b>piattaforma per vari tabaccai</b> invece che come software dedicato ad una singola 
+    tabaccheria; &egrave; infatti possibile registrare pi&ugrave; tabaccherie al software definendo per ciascuna di queste ulteriori 
+    utenti aventi accesso esclusivamente alla propria tabaccheria. Ogni tabaccheria sar&agrave; gestita da un solo utente 
+    configurato come <i>amministratore</i> per tale tabaccheria; questo utente potr&agrave; poi gestire gli altri utenti della tabaccheria 
+    oltre alla tabaccheria stessa.<br/>
+    Il sistema software non implementa attualmente un metodo di <b>controllo di validit&agrave;</b> delle tabaccherie inserite nel sistema in 
+    quanto un valido metodo per garantire la corretta registrazione delle tabaccherie inserite consisterebbe nell&apos;invio, 
+    all&apos;indirizzo specificato via posta, un codice di verifica da inserire nel sistema per validare la registrazione, dopo aver controllato, 
+    tramite un accordo con l&apos;Agenzia dei Monopoli, la reale e fiscale esistenza dell&apos;esercizio commerciale. Da quanto sopra 
+    riportato, &egrave; possibile considerare una reale implementazione di tale meccanismo in caso di reale ed effettiva intenzione 
+    di realizzazione del software in questione.<br/>
+    Citando nuovamente gli eventuali accordi con l&apos;Agenzia dei Monopoli, &egrave; importante sottolineare che nella 
+    versione del software sviluppata attualmente il database dei tabacchi &egrave; <b>inserito a mano dal gestore del sito</b>; 
+    un eventuale accordo con questa Agenzia potrebbe automatizzare, invece, l&apos;inserimento e l&apos;aggiornamento del database 
+    dei tabacchi, accordo difficilmente realizzabile attualmente.<br/>
+    Un altro miglioramento per il software potrebbe essere costituito dall&apos;utilizzo dei <b>codici a barre</b> dei pacchetti di sigarette 
+    per la vendita del tabacco, risultando pi&ugrave; rapido l&apos;inserimento delle vendite da parte del tabaccaio; tuttavia per 
+    realizzare ci&ograve; si renderebbe necessario l&apos;acquisto di uno scanner per codice a barre esterno, spesa attualmente non 
+    prevista data l&apos;attuale significativit&agrave; del progetto.<br/>
+    Questo software gestionale si presenta <b>attualmente come portale gratuito</b> per le tabaccherie; tuttavia, &egrave; da considerare 
+    l&apos;idea di una remunerazione per gli sviluppatori in caso di effettiva realizzazione ed ufficializzazione del progetto, 
+    attraverso il pagamento di una somma di denaro accessibile in un&apos;unica soluzione alla registrazione di una tabaccheria, 
+    ammontante ad esempio a &euro;100.
+</section>
+
+<section class="img" id="img-informatica">
+    <div class="centratore"> <span class="materia"> INFORMATICA </span> <br/> LINGUAGGIO SQL </div>
+</section>
+<section id="informatica" class="contenuto">
+    <div style="width:100%;text-align:right;font-size:10pt;margin-bottom:10px;"><span style="cursor:pointer;" id="spoilers-inf" onclick="spoilerInformatica();">&#9654 Espandi/Comprimi tutto</span></div>
+    
+    <h2 id="title-inf-sql" onclick="spoiler('inf-sql','Linguaggio SQL');">&#9654 Linguaggio SQL</h2>
+    <div class="spoiler" id="p-inf-sql">
+        Il linguaggio SQL fu inventato nel 1974 dall&apos;IBM, inizialmente con il nome &quot;Sequel&quot; per lavorare con i database relazionali; 
+        nella versione successiva venne detto &quot;SQL&quot;, diventando il linguaggio standard per l&apos;interazione 
+        con i database relazionali. Sebbene &quot;SQL&quot; sia l&apos;acronimo di Structured Query Language, il linguaggio SQL non permette 
+        solamente di effettuare query; questo linguaggio, infatti, consente:
+        <ul>
+            <li>DDL, Data Definition Language, permette di definire schemi relazionali, eliminare relazioni e modificare schemi relazionali;</li>
+            <li>DML, Data Manipulation Language, permette di inserire, modificare od eliminare record in relazioni;</li>
+            <li>DQL, Data Query Language, permette di interrogare il database e di operare sui risultati dell&apos;interrogazione;</li>
+            <li>DCL, Data Control Language, permette di creare e gestire gli utenti e i relativi permessi per le funzioni precedentemente citate di operazioni su database.</li>
+        </ul>
+        Le istruzioni SQL vengono tutte denominate, in modo informale, &quot;query&quot; anche se non tutte sono effettivamente query.
+    </div>
+    
+    <h2 id="title-inf-ddl" onclick="spoiler('inf-ddl','DDL - Data Definition Language');">&#9654 DDL - Data Definition Language</h2>
+    <div class="spoiler" id="p-inf-ddl">
+        Le istruzioni SQL DDL permettono di creare o modificare la struttura degli schemi relazionali o di eliminare relazioni o database.<br>
+        Per definire un nuovo database si usa:
+        <p class=code>
+            CREATE DATABASE IF NOT EXISTS <span class=nocode>nome_database </span>;
+        </p>
+        La clausola &quot;<code>IF NOT EXISTS</code>&quot; specifica l&apos;esecuzione dell&apos;istruzione solo nel caso in cui il 
+        database di nome specificato non esista gi&agrave;. <br>
+        Per definire una nuova relazione si usa:
+        <p class=code>
+            CREATE TABLE IF NOT EXISTS <span class=nocode>nome_tabella</span> (<br>
+            <span class=nocode>nome_attributo_1</span> <span class=nocode>tipo</span> <span class=nocode>vincoli_aggiuntivi</span>,<br>
+            <span class=nocode>nome_attributo_2</span> <span class=nocode>tipo</span> <span class=nocode>vincoli_aggiuntivi</span>,  ...  ,<br>
+            PRIMARY KEY (<span class=nocode>nome_attributo</span>),<br>
+            FOREIGN KEY (<span class=nocode>nome_attributo</span>) REFERENCES <span class=nocode>relazione_esterna</span>(<span class=nocode>nome_attributo_relaz_est</span>));
+        </p>
+        Questa istruzione permette di creare una nuova tabella con nome specificato e contenente gli attributi elencati tra le 
+        parentesi aventi ognuno uno specifico tipo ed eventuali vincoli aggiuntivi; ad esempio i ricorrenti 
+        &quot;<code>NOT NULL</code>&quot; o &quot;<code>AUTO_INCREMENT</code>&quot; (per il tipo intero). 
+        &quot;<code>PRIMARY KEY</code>&quot; specifica l&apos;attributo o gli attributi da utilizzare come chiave primaria, 
+        mentre &quot;<code>FOREIGN KEY</code>&quot; specifica un attributo da utilizzare come chiave esterna con l&apos;opportuno 
+        riferimento all&apos;attributo della relazione esterna. <br>
+        I tipi standard di base supportati da SQL sono:
+        <ul>
+            <li><code>INT</code>: numero intero; </li>
+            <li><code>SMALLINT</code>: numero intero piccolo (il valore massimo dipende dalla macchina di esecuzione) </li>
+            <li><code>FLOAT(<span class=nocode>n</span>)</code>: numero in virgola mobile con una precisione almeno <span class=nocode>n</span> cifre; </li>
+            <li><code>NUMERIC(<span class=nocode>p</span>,<span class=nocode> d</span>)</code>: numero con precisione specificata dall&apos;utente, dove 
+                <span class=nocode>p</span> indica il numero delle cifre e <span class=nocode>d</span> il numero di cifre di <span class=nocode>p</span> alla destra della virgola; </li>
+            <li><code>CHAR(<span class=nocode>n</span>)</code>: stringa di lunghezza fissa di <span class=nocode>n</span> caratteri; </li>
+            <li><code>VARCHAR(<span class=nocode>n</span>)</code>: stringa di lunghezza variabile di massimo <span class=nocode>n</span> caratteri.</li>
+        </ul>
+        Per eliminare un database si usa:
+        <p class=code>
+            DROP DATABASE <span class=nocode>nome_database </span>;
+        </p>
+        mentre per eliminare una relazione si utilizza:
+        <p class=code>
+            DROP TABLE <span class=nocode>nome_tabella </span>;
+        </p>
+        Per modificare lo schema relazionale di una tabella esistente &egrave; possibile eliminare od aggiungere attributi, con la conseguente perdita 
+        dell&apos;attributo in tutti i record in caso di eliminazione; in caso di aggiunta viene inserito l&apos;attributo con il valore di 
+        default <code>NULL</code> in tutti i record. Le istruzioni per aggiungere ed eliminare attributi sono:
+        <p class=code>
+            ALTER TABLE <span class=nocode>nome_tabella</span> ADD <span class=nocode>nome_attributo </span>;<br>
+            ALTER TABLE <span class=nocode>nome_tabella</span> DROP <span class=nocode>nome_attributo </span>;
+        </p>
+    </div>
+    
+    <h2 id="title-inf-dql" onclick="spoiler('inf-dql','DQL - Data Query Language');">&#9654 DQL - Data Query Language</h2>
+    <div class="spoiler" id="p-inf-dql">
+        Le istruzioni SQL DQL permettono l&apos;interrogazione dei dati nel database.<br>
+        L&apos;istruzione per la query di base &egrave; cos&igrave; strutturata:
+        <p class=code>
+            SELECT <span class=nocode>attributo1</span> AS <span class=nocode>nome_attributo1</span>, <span class=nocode> attributo2</span> AS <span class=nocode>nome_attributo2</span>, ...<br>
+            FROM <span class=nocode>tabella1</span> <span class=nocode>nome_tabella1</span>, <span class=nocode>tabella2</span> <span class=nocode>nome_tabella2</span>, ...<br>
+            WHERE <span class=nocode>condizione</span> ;
+        </p>
+        In questa query &egrave; possibile effettuare la proiezione delle colonne da visualizzare dopo il &quot;<code>SELECT</code>&quot; (con &quot;*&quot; si indicano tutte le colonne)
+        , specificando i database di provenienza dopo il &quot;<code>FROM</code>&quot; e dichiarando la condizione di selezione dopo il &quot;<code>WHERE</code>&quot;. In caso di 
+        utilizzo di pi&ugrave;  tabelle, queste, solitamente, vengono rinominate dopo il &quot;<code>FROM</code>&quot; per poter essere indicate facilmente davanti gli attributi separando 
+        il tutto con un punto.<br>
+        Dopo il &quot;<code>SELECT</code>&quot; &egrave; possibile specificare anche un metodo:
+        <ul>
+            <li>&quot;<code>ALL</code>&quot;: specifica di selezionare tutti i record, anche duplicati; </li>
+            <li>&quot;<code>DISTINCT</code>&quot;: specifica di eliminare i record duplicati; </li>
+            <li>&quot;<code>TOP</code>&quot;: specifica di selezionare solo il primo record. </li>
+        </ul>
+        &Egrave; possibile anche specificare funzioni di aggregazione di base nel &quot;<code>SELECT</code>&quot; come &quot;<code>SUM</code>&quot; 
+        per la somma dei valori nella colonna proiettata, &quot;<code>AVG</code>&quot; per la media, &quot;<code>MIN</code>&quot; per il valore minimo, 
+        &quot;<code>MAX</code>&quot; per il valore massimo, &quot;<code>COUNT</code>&quot; per il numero di record selezionati.<br>
+        La condizione posta dopo il &quot;<code>WHERE</code>&quot; &egrave; una condizione booleana, ad esempio: 
+        &quot;<span class=nocode>nome_attributo=valore_input_utente</span>&quot; oppure &quot;<span class=nocode>nome_attributo</span> 
+        <code>IS NOT NULL</code>&quot;; in questo modo verranno selezionati solamente i record che sono in grado di soddisfare la 
+        condizione posta. &Egrave; possibile utilizzare i connettivi logici per porre altre condizioni, come 
+        &quot;<code>AND</code>&quot;, &quot;<code>OR</code>&quot;…<br>
+        Particolari costrutti permettono inoltre di lavorare con le stringhe: la clausola &quot;<code>LIKE</code>&quot; permette di 
+        comparare dei pattern per individuare le informazioni richieste, consentendo l&apos;utilizzo al suo interno di caratteri 
+        speciali per confrontare ed individuare gli attributi con la stringa che soddisfa il pattern; il carattere speciale 
+        &quot;%&quot; indica una qualsiasi sottostringa di qualsiasi lunghezza, anche 0, invece il carattere &quot;_&quot; indica un 
+        singolo carattere qualsiasi, in ogni caso di lunghezza 1 e non 0. Si ricordi che il backspace &quot;\&quot; permette di 
+        rendere caratteri normali i caratteri speciali precedentemente indicati.<br>
+        Il &quot;<code>NATURAL JOIN</code>&quot; &egrave; un comando particolare che &egrave; possibile costruire anche seguendo 
+        la struttura della query appena analizzata, ad esempio:
+        <p class=code>
+            SELECT <span class=nocode>attributo1</span> AS <span class=nocode>nome_attributo1</span>, <span class=nocode>attributo2</span> AS <span class=nocode>nome_attributo2</span>, …<br>
+            FROM <span class=nocode>tabella1</span> tab1, <span class=nocode>tabella2</span> tab2, …<br>
+            WHERE tab1.<span class=nocode>chiave_esterna</span> = tab2.<span class=nocode>chiave_primaria</span> AND <span class=nocode>condizione_ulteriore </span>;
+        </p>
+        Oltre alle clausole finora analizzate, &egrave; possibile inserire altre clausole alla fine: 
+        <ul>
+            <li>&quot;<code>GROUP BY</code>&quot;: funzione di aggregazione che permette di raggruppare insiemi di record in base ad un attributo; </li>
+            <li>&quot;<code>HAVING</code>&quot;: condizione da imporre sul &quot;<code>GROUP BY</code>&quot;, equivalente ad un 
+            &quot;<code>WHERE</code>&quot;, per&ograve;, effettuato sul raggruppamento; </li>
+            <li>&quot;<code>ORDER BY</code>&quot;: specifica di ordinare in modo crescente i risultati della query secondo 
+            l&apos;attributo specificato; per ordinare in maniera decrescente &egrave; sufficiente aggiungere 
+            &quot;<code>DESC</code>&quot; alla fine; </li>
+            <li>&quot;<code>LIMIT </code><span class=nocode>n</span>&quot;: specifica di selezionare solo i primi 
+            <span class=nocode>n</span> record selezionati dalla query. </li>
+        </ul>
+        &Egrave; inoltre possibile creare sotto-query, in modo da utilizzare i risultati di una sotto-query in una query esterna; 
+        di seguito &egrave; fornito un esempio:
+        <p class=code>
+            SELECT <span class=nocode>attributo_tabella</span>, <span class=nocode>attributo2_tabella</span><br>
+            FROM <span class=nocode>tabella</span><br>
+            WHERE <span class=nocode>attributo_tabella</span> IN (SELECT <span class=nocode>attributo</span>
+            FROM <span class=nocode>tabella</span>
+            WHERE <span class=nocode>condizione</span>);
+        </p>
+    </div>
+    
+    <h2 id="title-inf-dml" onclick="spoiler('inf-dml','DML - Data Manipulation Language');">&#9654 DML - Data Manipulation Language</h2>
+    <div class="spoiler" id="p-inf-dml">
+        Le istruzioni SQL DML permettono di creare, modificare o eliminare record da una tabella in un database.<br>
+        Per l&apos;inserimento di record si utilizza:
+        <p class=code>
+            INSERT INTO <span class=nocode>nome_tabella</span> (<span class=nocode>attributo1</span>, <span class=nocode>attributo2</span>, <span class=nocode>attributo3</span>)<br>
+            VALUES (&quot;<span class=nocode>valore1_attributo1</span>&quot;, &quot;<span class=nocode>valore1_attributo2</span>&quot;, &quot;<span class=nocode>valore1_attributo3</span>&quot;),<br>
+            (&quot;<span class=nocode>valore2_attributo1</span>&quot;, &quot;<span class=nocode>valore2_attributo2</span>&quot;, &quot;<span class=nocode>valore2_attributo3</span>&quot;) ... ;
+        </p>
+        Nell&apos;istruzione appena descritta &egrave; possibile omettere l&apos;elenco delle colonne solo nel caso in cui i valori 
+        inseriti siano quelli di tutte le colonne e siano nell&apos;ordine corretto come indicato dallo schema relazionale della 
+        tabella interessata.<br>
+        Per la modifica si utilizza invece:
+        <p class=code>
+            UPDATE <span class=nocode>nome_tabella</span> SET <span class=nocode>attributo1</span>=&quot;<span class=nocode>valore_attributo2</span>&quot;, 
+            <span class=nocode>attributo2</span>=&quot;<span class=nocode>valore_attributo2</span>&quot;, ... ;
+        </p>
+        Per la cancellazione si utilizza infine:
+        <p class=code>
+            DELETE FROM <span class=nocode>nome_tabella</span> WHERE <span class=nocode>condizione</span>;
+        </p>
+        In questo caso vengono cancellati tutti i record che soddisfano la condizione specificata.
+    </div>
+    
+    <h2 id="title-inf-dcl" onclick="spoiler('inf-dcl','DCL - Data Control Language');">&#9654 DCL - Data Control Language</h2>
+    <div class="spoiler" id="p-inf-dcl">
+        Le istruzioni SQL DCL permettono di controllare i permessi assegnati agli utenti per operare su determinati database.<br>
+        Le istruzioni utilizzate per assegnare o revocare i permessi sono:
+        <p class=code>
+            GRANT <span class=nocode>privilegio1</span>, <span class=nocode>privilegio2</span>, ... ON <span class=nocode>nome_database</span> TO <span class=nocode>utente</span>;<br>
+            REVOKE <span class=nocode>privilegio1</span>, <span class=nocode>privilegio2</span>, ... ON <span class=nocode>nome_database</span> FROM <span class=nocode>utente </span>;
+        </p>
+        In queste istruzioni i privilegi assegnabili/revocabili sono corrispondenti ai comandi SQL che operano sui database, ad esempio <code>SELECT</code>, 
+        <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>REFERENCES</code>, <code>ALTER</code>, <code>CREATE</code>; specificando 
+        invece <code>ALL</code> si indicano tutti i permessi disponibili, creando una sorta di &quot;amministratore&quot; del database o revocando 
+        tutti i permessi per il database specificato.
+    </div>
+    
+    <h2 id="title-inf-transazioni" onclick="spoiler('inf-transazioni','Transazioni');">&#9654 Transazioni</h2>
+    <div class="spoiler" id="p-inf-transazioni">
+        Infine, &egrave; possibile fare utilizzo di transazioni, ovvero operazioni su database da eseguirsi in modo atomico o, in 
+        caso di problemi, annullare tali operazioni tornando allo stato precedente. I comandi caratteristici delle transazioni sono:
+        <p class=code>
+            BEGIN TRANSACTION <span class=nocode>nome_transazione</span>;<br>
+            COMMIT [TRANSACTION] <span class=nocode>nome_transazione</span>;<br>
+            ROLLBACK [TRANSACTION] <span class=nocode>nome_transazione</span>;
+        </p>
+        In questo caso il comando &quot;<code>BEGIN TRANSACTION</code>&quot; inizia una transazione, il comando 
+        &quot;<code>COMMIT</code>&quot; la inserisce nel database confermandola, mentre il comando &quot;<code>ROLLBACK</code>&quot; 
+        la annulla tornando allo stato precedente all&apos;inizio della stessa.
+    </div>
+    
+</section>
+
+<section class="img" id="img-tecnologie">
+    <div class="centratore"> <span class="materia"> TECNOLOGIE E PROGETTAZIONE DI SISTEMI INFORMATICI E DI TELECOMUNICAZIONI </span>
+        <br/> ARCHITETTURA CLIENT-SERVER: THIN CLIENT </div>
+</section>
+<section id="tecnologie" class="contenuto">
+    <div style="width:100%;text-align:right;font-size:10pt;margin-bottom:10px;"><span style="cursor:pointer;" id="spoilers-tinf" onclick="spoilerTecnologie();">&#9654 Espandi/Comprimi tutto</span></div>
+    
+    <h2 id="title-tinf-architettura" onclick="spoiler('tinf-architettura','Architettura Client-Server');">&#9654 Architettura Client-Server</h2>
+    <div class="spoiler" id="p-tinf-architettura">
+        <div style="float:right;margin-left:15px;margin-bottom:15px;font-style:italic;font-size:8pt;text-align:right;">
+            <img src="images-tesi/client-server-star.png" style="height:200px;"/><br/>
+            Tipica rappresentazione di un’architettura<br/>Client-Server con topologia a stella
+        </div>
+        Il modello Client-Server costituisce una delle architetture di rete pi&ugrave; utilizzate nel World Wide Web.<br/>
+        Questa architettura &egrave; costituita principalmente da due tipi di host: il server ed il client.
+        <ul>
+            <li>Il <b>server</b> &egrave; un particolare host o software utilizzato per mettere a disposizione uno o una serie di 
+                servizi, in base alla configurazione decisa dal sistemista;</li>
+            <li>Il <b>client</b> &egrave; un host o software in grado di connettersi ad un server per usufruire dei servizi messi a disposizione.</li>
+        </ul>
+        Generalmente il server con accezione hardware &egrave; una macchina ad elevate qualit&agrave;, affidabilit&agrave; e 
+        prestazioni in grado di sostenere connessioni multiple da pi&ugrave; client, i quali dovendo solamente utilizzare il servizio 
+        di un server, sempre con l&apos;accezione di hardware, sono macchine meno complesse e con prestazioni inferiori dei server. 
+        Facendo riferimento invece all&apos;accezione software, un server &egrave; un processo in grado di fornire servizi ad altri 
+        processi client, non necessariamente nella stessa macchina fisica. In base al tipo di servizi vengono adottati specifici 
+        protocolli, ad esempio:
+        <ul>
+            <li>protocollo HTTP per i Web Server (utilizzati per le pagine Web);</li>
+            <li>protocolli SMTP, IMAP, POP3 per i Mail Server;</li>
+            <li>protocolli FTP, SMB per i File Server;</li>
+            <li>protocollo DNS per le risoluzioni di domini.</li>
+        </ul>
+        I protocolli sopra citati sono quelli standard e pi&ugrave; comuni; &egrave; infatti possibile che, ad esempio, 
+        all&apos;interno di un&apos;azienda possano essere utilizzati protocolli personalizzati e proprietari sfruttando 
+        l&apos;architettura Client-Server. Oggigiorno il modello server-client &egrave; applicato soprattutto per i servizi Web.
+    </div>
+    <h2 id="title-tinf-pro" onclick="spoiler('tinf-pro','Vantaggi architettura Client-Server');">&#9654 Vantaggi architettura Client-Server</h2>
+    <div class="spoiler" id="p-tinf-pro">
+        <ul>
+            <li>Centralizzazione delle risorse: il server, concettualmente al centro della rete, permette l&apos;accesso condiviso 
+            alle risorse che &egrave; in grado di conservare e pu&ograve; permettere a pi&ugrave; client di accedere alla medesima 
+            risorsa, secondo le regole di condivisione ed accesso in precedenza definite;</li>
+            <li>Indipendenza dai client: in caso di malfunzionamento di qualche client il server continua a fornire i suoi servizi 
+            senza problemi;</li>
+            <li>Sicurezza: &egrave; possibile tramite appositi sistemi di sicurezza (ad esempio firewall, ACL, permessi ed altro) 
+            limitare l&apos;accesso e/o la modifica alle risorse del server;</li>
+            <li>Semplicit&agrave; di configurazione: &egrave; necessario configurare solo il server che eroga il servizio, i client 
+            poi rispetteranno le regole impostate nel server;</li>
+            <li>Manutenibilit&agrave;: &egrave; sufficiente effettuare le operazioni di manutenzione solo sul server affinch&eacute; 
+            possa essere affidabile per l&apos;erogazione dei servizi desiderati;</li>
+            <li>Scalabilit&agrave;: l&apos;aggiunta di client non arrecher&agrave; danni o malfunzionamenti alla rete.</li>
+        </ul>
+    </div>
+    <h2 id="title-tinf-contro" onclick="spoiler('tinf-contro','Svantaggi architettura Client-Server');">&#9654 Svantaggi architettura Client-Server</h2>
+    <div class="spoiler" id="p-tinf-contro">
+        <ul>
+            <li>Scarsa tolleranza ai guasti: in caso di guasti, se non sono presenti contromisure adatte a garantire (ad esempio, 
+            gruppi di continuit&agrave;, sistemi RAID…) la continuit&agrave; di funzionamento del server, la caduta del server causa 
+            il blocco del funzionamento dell&apos;intera rete;</li>
+            <div style="float:right;margin-left:15px;margin-bottom:15px;font-style:italic;font-size:8pt;text-align:right;">
+                <img src="images-tesi/client-server-bus.gif" style="height:150px;"/><br/>
+                Architettura Client-Server<br/>in una rete con topologia a bus
+            </div>
+            <li>Nel caso in cui la topologia della rete ponesse una sola &quot;route&quot; per raggiungere il server e questa si
+            interrompesse, il server risulterebbe irraggiungibile dai client compromettendo il funzionamento corretto della rete (si veda 
+            immagine a lato);</li>
+            <li>Costi: la necessit&agrave; di una macchina prestante dedita all&apos;erogazione di servizi a tutti i clientn
+            rappresenta un costo pi&ugrave; elevato.</li>
+        </ul>
+    </div>
+    <h2 id="title-tinf-client" onclick="spoiler('tinf-client','Thin &amp; Fat Client');">&#9654 Thin &amp; Fat Client</h2>
+    <div class="spoiler" id="p-tinf-client">
+        <img src="images-tesi/thin-fat-client.png" style="float:right;margin-left:15px;margin-bottom:15px;height:200px;border: solid 1px white;"/>
+        I servizi offerti da un server si compongono fondamentalmente di tre parti:
+        <ul>     
+            <li><b>resource manager</b>: parte che gestisce le risorse e la loro memorizzazione fisica;</li>
+            <li><b>application logic</b>: parte per la gestione delle richieste, ricerca ed elaborazione dei dati;</li>
+            <li><b>presentation</b>: parte che si occupa della visualizzazione all&apos;utente dei dati e risorse.</li>
+        </ul>
+        In base alle funzioni svolte dal client, si possono classificare:
+        <ul>
+            <li><b>thin client</b>: client che si occupano solo della funzione &quot;presentation&quot;, lasciando il &quot;resource 
+            manager&quot; ed &quot;application logic&quot; al server;</li>
+            <li><b>fat client</b>: client che si occupano anche di una parte di &quot;application logic&quot; oltre alla funzione 
+            &quot;presentation&quot;, lasciando la parte restante di &quot;application logic&quot; e &quot;resource manager&quot; 
+            al server.</li>
+        </ul>
+        <p>Inizialmente i client erano di tipo &quot;thin&quot;, ma, con l&apos;avanzare del progresso tecnologico, i client hanno 
+        acquisito potenze di calcolo maggiori tanto da poter supportare senza problemi una configurazione di tipo &quot;fat&quot;.<p/>
+        I vantaggi del &quot;thin client&quot; sono:
+        <ul>
+            <li>compatibilit&agrave; con client poco prestanti;</li>
+            <li>semplicit&agrave; di implementazione: il client deve solo mostrare i dati risultanti ricevuti;</li>
+            <li>migliori performance per calcoli pesanti: essendo il server una macchina dalle alte performance &egrave; 
+            in grado di compiere pesanti elaborazioni di dati pi&ugrave; velocemente di quanto potrebbe elaborare un client in 
+            configurazione &quot;fat&quot;.</li>
+        </ul>
+        I vantaggi del &quot;fat client&quot; invece sono:
+        <ul>
+            <li>minore congestione di rete: essendo i dati elaborati dal client, vengono inviati solo i dati strettamente necessari per 
+            l&apos;elaborazione invece che il risultato intero;</li>
+            <li>minor carico di lavoro per il server: elaborando parte dei dati il client, il server non necessita di elaborare 
+            completamente i dati potendo mettere la potenza di calcolo risparmiata a disposizione di altri client;</li>
+            <li>funzionamento offline: avendo una parte di elaborazione nel client, alcune operazioni possono essere svolte senza 
+            richiedere l&apos;uso del server;</li>
+            <li>migliori performance per file multimediali;</li>
+            <li>retro-compatibilit&agrave; con il &quot;thin client&quot;: avendo capacit&agrave; di calcolo maggiori del &quot;thin 
+            client&quot;, quindi non inferiori, il &quot;fat client&quot; pu&ograve; funzionare anche in configurazione &quot;thin&quot;.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="img" id="img-inglese">
+    <div class="centratore"> <span class="materia"> LINGUA INGLESE </span> <br/> DATABASE </div>
+</section>
+<section id="inglese" class="contenuto">
+    <div style="width:100%;text-align:right;font-size:10pt;margin-bottom:10px;"><span style="cursor:pointer;" id="spoilers-ing" onclick="spoilerInglese();">&#9654 Espandi/Comprimi tutto</span></div>
+    My project, called &quot;<a href="home.html" -target="_blank">Tabaccando</a>&quot;, is a type of management software for tobacconists, which means that an important part is performed by 
+    the database in order to store the information about tobacco, the tobacconists&apos; orders and 
+    eventually all the tobacco or other products sales. After storing this information the management software can perform calculations and operate with that data.
+    Focusing on the data storing aspect, this software uses a popular DBMS called &quot;MySQL&quot; to store information on a relational database. <br/>
+    The basic concepts involved in the project are explained below.
+    
+    <h2 id="title-ing-database" onclick="spoiler('ing-database','Databases');">&#9654 Databases</h2>
+    <div class="spoiler" id="p-ing-database">
+        A database is an organised collection of information that can easily be accessed, managed and updated.<br/>
+        There are different kinds of database models which define the data organisation:
+        <ul type="circle">
+            <li>Hierarchical model: with a one-way tree-like structure, it&apos;s now old and outdated;</li>
+            <li>Network model: with a two-way tree-like structure, it&apos;s more efficient than the hierarchical model but obsolete;</li>
+            <li>Relational model: composed by tables with rows and columns, it&apos;s now the mostly used model;</li>
+            <li>Object-oriented model: an improved model that organises data in an object oriented way.</li>
+        </ul>
+        It&apos;s important to say that the database refers to the data and not to the manager software which manipulates it.
+    </div>
+    <h2 id="title-ing-rdb" onclick="spoiler('ing-rdb','Relational Database Model');">&#9654 Relational Database Model</h2>
+    <div class="spoiler" id="p-ing-rdb">
+        The relational model was invented by Edgar Codd in 1970s. The relational database is a set of tables, called &quot;relations&quot;, each one composed of columns and rows; 
+        the columns are the &quot;attributes&quot; (or &quot;fields&quot;) and the rows are the &quot;records&quot; (or &quot;instances&quot;).<br/>
+        Attributes are specific types of information, such as numbers, strings of text, dates, times and so on. A record contains all the entries representing the properties of an element of the table. 
+        This model needs the definition of one or more columns as &quot;primary&quot; or &quot;composite&quot; keys which permit the entries to be uniquely identified in the entire table. 
+        In this model it&apos;s also possible to define a column as &quot;foreign key&quot; where entries under this column match the primary or composite key of another table; this link between tables is 
+        usually called &quot;association&quot; or &quot;relationship&quot;.
+        The following rules define important integrity constraints useful to grant data consistency and reliability.<br/>
+        For example:
+        <ul type="circle">
+            <li>defining attribute types (attribute domains) reduces the risk of wrong data insertion;</li>
+            <li>using a primary or composite key reduces redundancy so granting the uniqueness of a record;</li>
+            <li>rejecting null values in primary keys ensures entity integrity;</li>
+            <li>allowing only a foreign key that matches a really existing primary/composite key of another relation grants referential integrity.</li>
+        </ul>
+        Thanks to these rules the relational model is considered the most reliable and practical to implement, so it is now the most commonly used database model. 
+    </div>
+    <h2 id="title-ing-dbms" onclick="spoiler('ing-dbms','DBMS');">&#9654 DBMS</h2>
+    <div class="spoiler" id="p-ing-dbms">
+        A DataBase Management System is a kind of software used to create, manage and access a database. A DBMS must ensure:
+        <ul type="circle">
+            <li>The persistence of data: data is stored in a database on a mass storage device and survives after the closing of a program;</li>
+            <li>Data availability: data must be available regardless of the existence of other concurrent users who are accessing the database;</li>
+            <li>Data sharing: multiple users should to be able to work on the same data simultaneously;</li>
+            <li>Reliability: data must be consistent, that means data must have values that are really admissible and acceptable;</li>
+            <li>Resistance to failures: data must be preserved as intact as possible even in case of system errors or hardware failure damages; if data loss occurs the DBMS must restore the last valid backup copy;</li>
+            <li>Data handling: the DBMS must provide a method to access and manipulate data from databases through the use of a specific query language.</li>
+            <li>Data independence: data is defined independently from the applications that interact with it, so any modification to the data structure doesn&apos;t affect the applications and vice-versa;</li>
+            <li>Data integrity: the DBMS must provide mechanisms to check and validate submitted data in order to respect the specified integrity rules.</li>
+        </ul>
+        The DBMS works as intermediary software between the database and the applications which have to operate with it. The DBMS also manages the simultaneous access of multiple users to the same database.
+        The operations with the database are physically performed by the DBMS; these operations are specified by the application program through the &quot;queries&quot;.<br/>
+        Some examples of DBMS are Oracle, Microsoft SQL Server, MySQL, PostgreSQL and Microsoft Access.<br/>
+        MySQL is the most famous RDBMS (Relational DBMS) with no user-friendly graphic interface, while Microsoft Access is the most commonly used DBMS with a user-friendly interface.
+    </div>
+    <h2 id="title-ing-query" onclick="spoiler('ing-query','Query');">&#9654 Query</h2>
+    <div class="spoiler" id="p-ing-query">
+    A query is an instruction used to retrieve data from a database; technically speaking, queries perform only data retrieving but they are commonly used also for:
+    <ul type="circle">
+    	<li>defining or deleting databases (DDL) ;</li>
+    	<li>defining, modifying or deleting table structure (DDL) ;</li>
+    	<li>inserting, updating or deleting data from the database (DML) ;</li>
+    	<li>specifying users&apos; privileges (DCL) .</li>
+    </ul>
+    The programmer must specify in which columns he wants to operate and the conditions for the selection of the entries.<br/>
+    The most commonly used query language is called &quot;SQL&quot; (Structured Query Lenguage).
+    </div> 
+</section>
+
+
+<section class="img" id="img-italiano">
+    <div class="centratore"> <span class="materia"> LINGUA E LETTERATURA ITALIANA </span> <br/> ITALO SVEVO: &quot;LA COSCIENZA DI ZENO&quot; </div>
+</section>
+<section id="italiano" class="contenuto">
+    <div style="width:100%;text-align:right;font-size:10pt;margin-bottom:10px;"><span style="cursor:pointer;" id="spoilers-ita" onclick="spoilerItaliano();">&#9654 Espandi/Comprimi tutto</span></div>
+    
+    <h2 id="title-ita-svevo" onclick="spoiler('ita-svevo','Italo Svevo');">&#9654 Italo Svevo</h2>
+    <div class="spoiler" id="p-ita-svevo">
+        <img src="images-tesi/svevo.jpg" style="float:right;margin-left:15px;margin-bottom:15px;"/>
+        Italo Svevo, pseudonimo di Aron Hector Schmitz, nasce nel 1861 a Trieste, allora citt&agrave; &quot;asburgica&quot;, 
+        da padre tedesco (Franz) e madre italiana (Allegra Moravia). Compie i suoi studi in Germania, in Baviera, dove studia 
+        tedesco e materie propedeutiche agli studi commerciali conclusi poi a Trieste. Conseguito il diploma, trova subito 
+        occupazione in una banca; nel frattempo, scrive e pubblica a sue spese due romanzi: &quot;<b>Una vita</b>&quot; nel 1892 
+        e &quot;<b>Senilit&agrave</b>;&quot; nel 1898, che, inizialmente, non riscuotono successo. Nel 1896 si sposa con Lidia 
+        Veneziani ed inizia a lavorare nella fabbrica di vernici del suocero. Dal matrimonio nasce la figlia Letizia. Agli inizi 
+        del &apos;900 si iscrive ad una scuola di Inglese a Trieste dove conosce J. Joyce, prima suo insegnante, poi grande amico. 
+        Nel 1923 pubblica il suo terzo romanzo &quot;La <b>coscienza di Zeno</b>&quot; riscuotendo un notevole successo grazie 
+        anche all&apos;appoggio di Joyce e alla recensione positiva di E. Montale. Muore in un incidente d&apos;auto nel 1928 a 
+        Motta di Livenza lasciando incompiuto il romanzo, <i>continuazione</i> del precedente, dal titolo &quot;<b>Il vecchione 
+        o Le confessioni del vegliardo</b>&quot;. Un&apos;opera postuma di grande interesse &egrave; l&apos;<b>epistolario</b> 
+        dove emerge la concezione della vita dell&apos;autore.<br>
+        I. Svevo &egrave; considerato dalla critica un <b>autore mitteleuropeo</b>, cio&egrave; uno scrittore che si fa portavoce 
+        di pi&ugrave; espressioni culturali europee; ad esempio, introduce ed approfondisce la tematica della <b>psicanalisi</b> 
+        dopo  la traduzione del testo &quot;Interpretazione dei sogni&quot; di Sigmund Freud.
+
+    </div>
+    
+    <h2 id="title-ita-zeno" onclick="spoiler('ita-zeno','La coscienza di Zeno');">&#9654 La coscienza di Zeno</h2>
+    <div class="spoiler" id="p-ita-zeno">
+        <img src="images-tesi/Coscienza_di_Zeno.jpg" style="float:right;margin-left:15px;margin-bottom:15px;height:300px"/>
+        &quot;La coscienza di Zeno&quot; &egrave; il terzo romanzo scritto da Italo Svevo dal 1919 al 1922 e pubblicato nel 1923.<br>
+        Il romanzo si compone in totale di otto capitoli, i quali, non considerando la Premessa e la Prefazione, non seguono un 
+        ordine cronologico ma costituiscono &quot;<i>episodi</i>&quot; tratti dalla vita del protagonista, Zeno Cosini.
+        <br/>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo I. Prefazione</div>
+        <div style="margin-left:15px;">
+            In questo capitolo viene introdotta la storia con il dottor S., analista del paziente Zeno Cosini, il quale afferma 
+            di pubblicare gli appunti del paziente per vendetta dopo che costui ha abbandonato le sue terapie ferendolo nel suo 
+            orgoglio professionale; gli appunti contengono gli episodi di vita del paziente scritti di suo pugno su consiglio del 
+            dottor S. per il suo percorso di cura dalla malattia psichica di cui era affetto.
+        </div>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo II. Preambolo</div>
+        <div style="margin-left:15px;">
+            Zeno Cosini, come suggerito dal <i>dottore</i>, cerca di scrivere i propri ricordi di vita; dopo poco tempo, per&ograve;, 
+            si addormenta e ricorda i suoi primi momenti. Inizialmente, nemmeno si riconosce; poi pensa a quante combinazioni di 
+            eventi possono causare dolore e preoccupazioni a un bambino privandolo dei giorni puri. Zeno, non avendo ottenuto il 
+            risultato desiderato, decide di ritentare il giorno seguente.
+        </div>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo III. Il fumo</div>
+        <div style="margin-left:15px;">
+            In questo capitolo Zeno narra del vizio che lo tormenta da quando era ragazzino e dal quale non &egrave; mai riuscito 
+            a liberarsi: il fumo. Per cercare di liberarsi dal vizio del fumo, Zeno si fa ricoverare anche una clinica dalla quale, 
+            per&ograve;, fugge corrompendo con una bottiglia di cognac l&apos;infermiera che lo sorveglia.<br>
+            Zeno analizza in questo capitolo la sua incapacit&agrave; e mancanza di determinazione nel cercare di perseguire un 
+            fine con successo; questa sua incapacit&agrave;, o meglio <i>inettitudine</i>, viene giustificata dal suo senso di 
+            vuoto interiore e dalla mancanza di una figura paterna determinata e rigorosa nella sua infanzia.
+        </div>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo IV. La morte di mio padre</div>
+        <div style="margin-left:15px;">
+            In questo capitolo Zeno narra gli ultimi momenti del padre facendo riferimento anche ai rapporti che aveva con lui. 
+            Il protagonista cerca di accudire il padre tentando anche di stabilire con lui un rapporto affettivo prima che sia 
+            troppo tardi; tuttavia, una notte, il padre viene colpito da un edema cerebrale che lo rende incapace di intendere 
+            e volere, destinandolo a morte certa, prima di parlare seriamente con il figlio. Proprio prima di morire il padre 
+            schiaffeggia addirittura il figlio; questo gesto segna profondamente Zeno incapace di capirne il perch&eacute;.
+        </div>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo V. La storia del mio matrimonio</div>
+        <div style="margin-left:15px;">
+            In questo capitolo Zeno narra le vicende che lo hanno portato al matrimonio. Il protagonista, infatti,  aveva cominciato 
+            a frequentare la famiglia di Giovanni Malfenti, uomo d&apos;affari triestino, con la speranza di sposare la figlia 
+            pi&ugrave; graziosa, Ada, che, per&ograve;, lo rifiut&ograve; per la sua incapacit&agrave; di cambiare. Sentendo il 
+            bisogno di una donna al suo fianco, fece la proposta di matrimonio anche alle altre sorelle: Anna non fu considerata 
+            perch&eacute; di soli otto anni, Alberta lo respinse a sua volta mentre Augusta, la meno attraente, accolse la sua 
+            proposta rivelandosi poi la giusta moglie per Zeno.<br>
+            Il protagonista scrive di aver trovato in Augusta la figura dolce, materna e di conforto del quale aveva bisogno; 
+            ci&ograve;, comunque, non gli imped&igrave; di avere un&apos;amante, Carla Greco.
+        </div>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo VI. La moglie e l&apos;amante</div>
+        <div style="margin-left:15px;">
+            La relazione con l&apos;amante Carla, pur essendo diventata passionale da un inizio di attrazione prettamente fisica, 
+            si presenta ambigua per Zeno in quanto non vuole rinunciarvi ma non vuole nemmeno ferire la moglie amata. La storia 
+            con l&apos;amante si conclude quando la ragazza, stanca delle contraddizioni del protagonista, sposa un insegnante di 
+            canto presentatole dallo stesso Zeno.
+        </div>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo VII. Storia di un&apos;associazione commerciale</div>
+        <div style="margin-left:15px;">
+            In questo capitolo il protagonista narra del fallimento dell&apos;impresa gestita insieme a Guido, il marito di Ada. 
+            Il fallimento &egrave; dovuto a sperperi di denaro da parte di Guido il quale, per cercare di rimediare, inscena un 
+            tentato suicidio per riscuotere del denaro dalla moglie in modo da risanare l&apos;azienda. Un secondo tentativo di 
+            suicidio, per&ograve;, si realizza seriamente. Giunto in ritardo al funerale di Guido, Zeno, viene accusato da Ada di 
+            aver espresso in tal modo la gelosia verso il defunto marito.
+        </div>
+        <div style="margin-top:8px;font-weight:bold;">Capitolo VIII. Psicoanalisi</div>
+        <div style="margin-left:15px;">
+            In questo capitolo Zeno riprende a scrivere dopo sei mesi di interruzione ribellandosi al medico e denunciando il suo 
+            disprezzo per la psicanalisi. Proprio in quest&apos; ultima parte, per&ograve;, Zeno capisce di essere guarito in quanto 
+            la malattia interiore di cui soffriva &egrave; condivisa da tutta l&apos;umanit&agrave; ed il fatto di essersene reso 
+            conto &egrave; segno di salute mentale.<br>
+            La narrazione si conclude con una sorta di profezia di una catastrofe come metodo di &quot;ritorno alla salute&quot;.
+        </div><br/>
+        L&apos;opera &quot;La coscienza di Zeno&quot; &egrave; considerata dalla critica l&apos;ultimo grande capolavoro di I. Svevo. 
+        Il testo presenta le tematiche che hanno reso famoso l&apos;Autore triestino, precisamente:
+        <ul>
+            <li>l&apos;inettitudine: il protagonista, Zeno Cosini, &egrave; un inetto per eccellenza; infatti, &egrave; privo di 
+            determinazione, incapace di prendere delle decisioni.</li>
+            <li>la psicanalisi: tema di fondo dell&apos;opera, riflette il profondo della coscienza del protagonista paziente;</li>
+            <li>il &quot;complesso di Edipo&quot;: il protagonista ha un rapporto conflittuale con il padre e di rispetto ed affetto 
+            con la madre, costituendo il cosiddetto &quot;complesso di Edipo&quot; teorizzato da S. Freud;</li>
+            <li>l&apos;ironia: il romanzo contiene molti passaggi ironici inseriti per rendere la lettura di temi &quot;pesanti&quot; 
+            pi&ugrave; piacevole;</li>
+            <li>il pessimismo: la visione dell&apos;uomo che emerge dal testo &egrave; senz&apos;altro pessimistica; il culmine si 
+            raggiunge nel finale quando emerge il concetto che una catastrofe pu&ograve; risolvere i problemi;</li>
+            <li>la morte: &egrave; un tema ricorrente nel romanzo e pu&ograve; essere considerato una sfaccettatura del pessimismo;</li>
+            <li>la verit&agrave;: il protagonista si rifugia nella falsit&agrave; per rendere le situazioni a lui favorevoli; solo 
+            alla fine si render&agrave; conto che la verit&agrave; &egrave; la salute, la cura;</li>
+            <li>la memoria: l&apos;intero romanzo &egrave; basato sul racconto dei ricordi del protagonista.</li>
+        </ul>
+        
+    </div>
+    
+    <h2 id="title-ita-fumo" onclick='spoiler("ita-fumo","L&apos;ultima sigaretta");'>&#9654 L'ultima sigaretta</h2>
+    <div class="spoiler" id="p-ita-fumo">
+        Il brano senz&apos;altro pi&ugrave; famoso dell&apos;opera &quot;La coscienza di Zeno&quot; (estratto dal terzo capitolo) 
+        &egrave; quello riportato in tanti testi con il titolo &quot;L&apos;ultima sigaretta&quot; (<a
+        onclick='window.open("ultima_sigaretta.html", "L&apos;ultima sigaretta - I. Svevo", "width=800,height=550,scrollbars=yes");'
+        style="cursor:pointer;">Leggi il testo</a>). Nel brano in questione il protagonista, per adempiere al suggerimento del
+        dottor S. di scrivere un&apos;autobiografia per favorire la cura, descrive in prima persona il suo vizio del fumo.
+        <p><b>Analisi del testo</b></p>
+        Nel testo riportato Zeno Cosini racconta i dettagli del suo vizio per il fumo, sempre combattuto senza successo. 
+        Il protagonista ricorda le sue prime esperienze con il fumo, dapprima rese possibili rubando i soldi al padre, poi, 
+        una volta scoperto, fumando i resti dei sigari del padre. A vent&apos;anni, il protagonista si accorge di odiare il fumo, 
+        causa oltretutto di un suo malessere fisico ma, nonostante la sua condizione, il solo desiderio di fumare un&apos;ultima 
+        sigaretta e le proibizioni del padre (&quot;<i>ma le proibizioni valsero ad eccitarlo</i>&quot;) eccitavano il suo vizio 
+        a tal punto da non essere mai effettivamente l&apos;<b>ultima</b> sigaretta. In questo passo si pu&ograve; evincere 
+        l&apos;<b>ossessione</b> del protagonista per l&apos;ultima sigaretta, la quale sar&agrave; dal protagonista stesso 
+        considerata superata quando afferma &quot;<i>da qualche tempo io fumo molte sigarette... che non sono le ultime</i>&quot;; 
+        in questo passo viene infatti affermato che l&apos;ossessione per l&apos;<b>ultima</b> sigaretta &egrave; superata, ma non 
+        il vizio per il fumo. &Egrave; importante, inoltre, sottolineare la nascita del vizio del fumo, inizialmente come forma di 
+        ribellione al padre che fumava senza problemi di fronte a Zeno ma al contempo impediva al figlio di farlo; successivamente, 
+        questo vizio si allarga come forma di difesa dalla realt&agrave; circostante.<br>
+        La rivalit&agrave; nata nel protagonista nei confronti del padre pu&ograve; essere considerata una sfaccettatura del 
+        <b>complesso di Edipo</b>, riconducibile ad un sentimento di rivalit&agrave; verso il genitore dello stesso sesso e, 
+        non presente in maniera profonda come da definizione ne &quot;La coscienza di Zeno&quot;, in un sentimento di amore verso 
+        il genitore di sesso opposto.<br>
+        Questi aspetti sono considerati psicanalitici, seguendo i canoni ideati da S. Freud.<br>
+        Tra gli altri aspetti rilevanti presenti nel brano ci sono:
+        <ul>
+            <li>l&apos;inettitudine: il protagonista vorrebbe cambiare il suo destino, ovvero smettere di fumare, ma non riesce a 
+            causa della sua mancanza di determinazione, della sua pigrizia, della sua incapacit&agrave; di prendere delle decisioni.</li>
+            <li>l&apos;ironia: nel brano, I. Svevo &egrave; ricorso all&apos;utilizzo dell&apos;ironia, ovvero alterando fatti volendo 
+            in realt&agrave; affermare il contrario in modo da non rendere la lettura monotona; un esempio di ironia pu&ograve; essere 
+            individuato nella parte finale, quando Zeno narra di fantasiose date perfette per le sue <i>ultime</i> sigarette.</li>
+            <li>la memoria: il brano &egrave; un racconto di vita del protagonista emerso scavando nella sua memoria al fine di 
+            adempiere alla cura psicanalitica prescritta dal dottor S.</li>
+            <li>l&apos;autobiografia: il brano &egrave; un&apos;autobiografia scritta dal protagonista su consiglio del dottor S. 
+            come cura al suo problema psicanalitico.</li>
+            <li>l&apos;incertezza dell&apos;uomo: il protagonista &egrave; paziente di uno psicanalista perch&eacute; non riesce 
+            ad identificarsi con il mondo circostante.</li>
+        </ul>
+    </div>
+</section>
+
+<section id="crediti">
+    <table style="width:100%">
+        <tr>
+            <td><a href="Tesi_Boin_Nicholas.pdf" title="Tesi in formato PDF" target="_blank">Formato PDF</a></td>
+            <td class="credits">
+                Copyright &copy; Nicholas Boin - Il Software Gestionale<br/>
+                <a href="http://www.primolevi.gov.it" target="_blank">I.I.S. Primo Levi di Badia Polesine</a> - Classe V T.E.I.<br/>
+                Articolazione Informatica e Telecomunicazioni<br/>
+                Anno Scolastico 2016/2017<br/>
+                <br/>Sito creato con HTML, CSS3 e JavaScript
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

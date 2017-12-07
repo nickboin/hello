@@ -1,0 +1,12 @@
+.box {
+	position: absolute;
+	background-color: #d9d9d9;
+	top: 70px;
+	left: 30px;
+	bottom: 30px;
+	right: 30px;
+	border: solid 1px gray;
+	border-radius: 5px;
+	padding: 10px;
+	overflow: auto;
+}
